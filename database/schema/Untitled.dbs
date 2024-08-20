@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="MySql" id="MySql-14c1" database="MySql" >
+	<schema name="laravel" >
+		<table name="board_lists" row_count="0" spec="" >
+			<column name="id" type="BIGINT" jt="-5" mandatory="y" unsigned="y" />
+			<column name="name" type="VARCHAR" length="100" jt="12" mandatory="y" >
+				<column_options><![CDATA[CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci]]></column_options>
+			</column>
+			<column name="board_id" type="BIGINT" jt="-5" mandatory="y" unsigned="y" />
+			<column name="description" type="TEXT" length="9999999" jt="-1" />
+			<index name="pk_board_lists" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="fk_statuses_boards" unique="NORMAL" >
+				<column name="board_id" />
+			</index>
+			<fk name="fk_statuses_boards" to_schema="laravel" to_table="boards" delete_action="cascade" update_action="cascade" options="" >
+				<fk_column name="board_id" pk="id" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci]]></options>
+		</table>
+		<table name="board_participants" row_count="0" spec="" >
+			<column name="id" type="BIGINT" jt="-5" mandatory="y" unsigned="y" />
+			<column name="user_id" type="BIGINT" jt="-5" mandatory="y" unsigned="y" />
+			<column name="board_id" type="BIGINT" jt="-5" mandatory="y" unsigned="y" />
+			<column name="rights" type="JSON" jt="2000" />
+			<index name="pk_board_participants" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="fk_board_participants_boards" unique="NORMAL" >
+				<column name="board_id" />
+			</index>
+			<index name="fk_board_participants_users" unique="NORMAL" >
+				<column name="user_id" />
+			</index>
+			<fk name="fk_board_participants_boards" to_schema="laravel" to_table="boards" delete_action="cascade" update_action="cascade" options="" >
+				<fk_column name="board_id" pk="id" />
+			</fk>
+			<fk name="fk_board_participants_users" to_schema="laravel" to_table="users" delete_action="cascade" update_action="cascade" options="" >
+				<fk_column name="user_id" pk="id" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci]]></options>
+		</table>
+		<table name="boards" row_count="50" spec="" >
+			<column name="id" type="BIGINT" jt="-5" mandatory="y" unsigned="y" >
+				<identity><![CDATA[AUTO_INCREMENT]]></identity>
+			</column>
+			<column name="name" type="VARCHAR" length="100" jt="12" mandatory="y" >
+				<column_options><![CDATA[CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci]]></column_options>
+			</column>
+			<column name="author_id" type="BIGINT" jt="-5" mandatory="y" unsigned="y" />
+			<index name="pk_boards" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="fk_boards_users" unique="NORMAL" >
+				<column name="author_id" />
+			</index>
+			<fk name="fk_boards_users" to_schema="laravel" to_table="users" delete_action="cascade" update_action="cascade" options="" >
+				<fk_column name="author_id" pk="id" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci]]></options>
+		</table>
+		<table name="cache" row_count="0" spec="" >
+			<column name="key" type="VARCHAR" length="255" jt="12" mandatory="y" >
+				<column_options><![CDATA[CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci]]></column_options>
+			</column>
+			<column name="value" type="MEDIUMTEXT" jt="-1" mandatory="y" >
+				<column_options><![CDATA[CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci]]></column_options>
+			</column>
+			<column name="expiration" type="INT" jt="4" mandatory="y" />
+			<index name="pk_cache" unique="PRIMARY_KEY" >
+				<column name="key" />
+			</index>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci]]></options>
+		</table>
+		<table name="cache_locks" row_count="0" spec="" >
+			<column name="key" type="VARCHAR" length="255" jt="12" mandatory="y" >
+				<column_options><![CDATA[CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci]]></column_options>
+			</column>
+			<column name="owner" type="VARCHAR" length="255" jt="12" mandatory="y" >
+				<column_options><![CDATA[CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci]]></column_options>
+			</column>
+			<column name="expiration" type="INT" jt="4" mandatory="y" />
+			<index name="pk_cache_locks" unique="PRIMARY_KEY" >
+				<column name="key" />
+			</index>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci]]></options>
+		</table>
+		<table name="failed_jobs" row_count="0" spec="" >
+			<column name="id" type="BIGINT" jt="-5" mandatory="y" unsigned="y" >
+				<identity><![CDATA[AUTO_INCREMENT]]></identity>
+			</column>
+			<column name="uuid" type="VARCHAR" length="255" jt="12" mandatory="y" >
+				<column_options><![CDATA[CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci]]></column_options>
+			</column>
+			<column name="connection" type="TEXT" jt="-1" mandatory="y" >
+				<column_options><![CDATA[CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci]]></column_options>
+			</column>
+			<column name="queue" type="TEXT" jt="-1" mandatory="y" >
+				<column_options><![CDATA[CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci]]></column_options>
+			</column>
+			<column name="payload" type="LONGTEXT" jt="-1" mandatory="y" >
+				<column_options><![CDATA[CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci]]></column_options>
+			</column>
+			<column name="exception" type="LONGTEXT" jt="-1" mandatory="y" >
+				<column_options><![CDATA[CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci]]></column_options>
+			</column>
+			<column name="failed_at" type="TIMESTAMP" jt="93" mandatory="y" >
+				<defo><![CDATA[CURRENT_TIMESTAMP]]></defo>
+			</column>
+			<index name="pk_failed_jobs" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="failed_jobs_uuid_unique" unique="UNIQUE_KEY" >
+				<column name="uuid" />
+			</index>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci]]></options>
+		</table>
+		<table name="job_batches" row_count="0" spec="" >
+			<column name="id" type="VARCHAR" length="255" jt="12" mandatory="y" >
+				<column_options><![CDATA[CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci]]></column_options>
+			</column>
+			<column name="name" type="VARCHAR" length="255" jt="12" mandatory="y" >
+				<column_options><![CDATA[CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci]]></column_options>
+			</column>
+			<column name="total_jobs" type="INT" jt="4" mandatory="y" />
+			<column name="pending_jobs" type="INT" jt="4" mandatory="y" />
+			<column name="failed_jobs" type="INT" jt="4" mandatory="y" />
+			<column name="failed_job_ids" type="LONGTEXT" jt="-1" mandatory="y" >
+				<column_options><![CDATA[CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci]]></column_options>
+			</column>
+			<column name="options" type="MEDIUMTEXT" jt="-1" >
+				<column_options><![CDATA[CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci]]></column_options>
+			</column>
+			<column name="cancelled_at" type="INT" jt="4" />
+			<column name="created_at" type="INT" jt="4" mandatory="y" />
+			<column name="finished_at" type="INT" jt="4" />
+			<index name="pk_job_batches" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci]]></options>
+		</table>
+		<table name="jobs" row_count="0" spec="" >
+			<column name="id" type="BIGINT" jt="-5" mandatory="y" unsigned="y" >
+				<identity><![CDATA[AUTO_INCREMENT]]></identity>
+			</column>
+			<column name="queue" type="VARCHAR" length="255" jt="12" mandatory="y" >
+				<column_options><![CDATA[CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci]]></column_options>
+			</column>
+			<column name="payload" type="LONGTEXT" jt="-1" mandatory="y" >
+				<column_options><![CDATA[CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci]]></column_options>
+			</column>
+			<column name="attempts" type="TINYINT" jt="-6" mandatory="y" unsigned="y" />
+			<column name="reserved_at" type="INT" jt="4" unsigned="y" />
+			<column name="available_at" type="INT" jt="4" mandatory="y" unsigned="y" />
+			<column name="created_at" type="INT" jt="4" mandatory="y" unsigned="y" />
+			<index name="pk_jobs" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="jobs_queue_index" unique="NORMAL" >
+				<column name="queue" />
+			</index>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci]]></options>
+		</table>
+		<table name="migrations" row_count="0" spec="" >
+			<column name="id" type="INT" jt="4" mandatory="y" unsigned="y" >
+				<identity><![CDATA[AUTO_INCREMENT]]></identity>
+			</column>
+			<column name="migration" type="VARCHAR" length="255" jt="12" mandatory="y" >
+				<column_options><![CDATA[CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci]]></column_options>
+			</column>
+			<column name="batch" type="INT" jt="4" mandatory="y" />
+			<index name="pk_migrations" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<options><![CDATA[ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci]]></options>
+		</table>
+		<table name="password_reset_tokens" row_count="0" spec="" >
+			<column name="email" type="VARCHAR" length="255" jt="12" mandatory="y" >
+				<column_options><![CDATA[CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci]]></column_options>
+			</column>
+			<column name="token" type="VARCHAR" length="255" jt="12" mandatory="y" >
+				<column_options><![CDATA[CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci]]></column_options>
+			</column>
+			<column name="created_at" type="TIMESTAMP" jt="93" />
+			<index name="pk_password_reset_tokens" unique="PRIMARY_KEY" >
+				<column name="email" />
+			</index>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci]]></options>
+		</table>
+		<table name="personal_access_tokens" row_count="0" spec="" >
+			<column name="id" type="BIGINT" jt="-5" mandatory="y" unsigned="y" >
+				<identity><![CDATA[AUTO_INCREMENT]]></identity>
+			</column>
+			<column name="tokenable_type" type="VARCHAR" length="255" jt="12" mandatory="y" >
+				<column_options><![CDATA[COLLATE utf8mb4_unicode_ci]]></column_options>
+			</column>
+			<column name="tokenable_id" type="BIGINT" jt="-5" mandatory="y" unsigned="y" />
+			<column name="name" type="VARCHAR" length="255" jt="12" mandatory="y" >
+				<column_options><![CDATA[COLLATE utf8mb4_unicode_ci]]></column_options>
+			</column>
+			<column name="token" type="VARCHAR" length="64" jt="12" mandatory="y" >
+				<column_options><![CDATA[COLLATE utf8mb4_unicode_ci]]></column_options>
+			</column>
+			<column name="abilities" type="TEXT" jt="-1" >
+				<column_options><![CDATA[COLLATE utf8mb4_unicode_ci]]></column_options>
+			</column>
+			<column name="last_used_at" type="TIMESTAMP" jt="93" />
+			<column name="expires_at" type="TIMESTAMP" jt="93" />
+			<column name="created_at" type="TIMESTAMP" jt="93" />
+			<column name="updated_at" type="TIMESTAMP" jt="93" />
+			<index name="pk_personal_access_tokens" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="personal_access_tokens_token_unique" unique="UNIQUE_KEY" >
+				<column name="token" />
+			</index>
+			<index name="personal_access_tokens_tokenable_type_tokenable_id_index" unique="NORMAL" >
+				<column name="tokenable_type" />
+				<column name="tokenable_id" />
+			</index>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci]]></options>
+		</table>
+		<table name="sessions" row_count="3" spec="" >
+			<column name="id" type="VARCHAR" length="255" jt="12" mandatory="y" >
+				<column_options><![CDATA[CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci]]></column_options>
+			</column>
+			<column name="user_id" type="BIGINT" jt="-5" unsigned="y" />
+			<column name="ip_address" type="VARCHAR" length="45" jt="12" >
+				<column_options><![CDATA[CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci]]></column_options>
+			</column>
+			<column name="user_agent" type="TEXT" jt="-1" >
+				<column_options><![CDATA[CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci]]></column_options>
+			</column>
+			<column name="payload" type="LONGTEXT" jt="-1" mandatory="y" >
+				<column_options><![CDATA[CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci]]></column_options>
+			</column>
+			<column name="last_activity" type="INT" jt="4" mandatory="y" />
+			<index name="pk_sessions" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="sessions_user_id_index" unique="NORMAL" >
+				<column name="user_id" />
+			</index>
+			<index name="sessions_last_activity_index" unique="NORMAL" >
+				<column name="last_activity" />
+			</index>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci]]></options>
+		</table>
+		<table name="tags" row_count="0" spec="" >
+			<column name="id" type="BIGINT" jt="-5" mandatory="y" unsigned="y" >
+				<identity><![CDATA[AUTO_INCREMENT]]></identity>
+			</column>
+			<column name="name" type="VARCHAR" length="100" jt="12" >
+				<column_options><![CDATA[CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci]]></column_options>
+			</column>
+			<column name="color" type="VARCHAR" length="10" jt="12" >
+				<column_options><![CDATA[CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci]]></column_options>
+			</column>
+			<index name="pk_tags" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci]]></options>
+		</table>
+		<table name="task_attachments" row_count="0" spec="" >
+			<column name="id" type="BIGINT" jt="-5" mandatory="y" unsigned="y" />
+			<column name="name" type="VARCHAR" length="100" jt="12" mandatory="y" >
+				<column_options><![CDATA[CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci]]></column_options>
+			</column>
+			<column name="content" type="BLOB" jt="2004" mandatory="y" />
+			<column name="task_id" type="BIGINT" jt="-5" mandatory="y" unsigned="y" />
+			<column name="created_at" type="TIMESTAMP" jt="93" mandatory="y" >
+				<defo><![CDATA[CURRENT_TIMESTAMP]]></defo>
+			</column>
+			<column name="user_id" type="BIGINT" jt="-5" mandatory="y" unsigned="y" />
+			<index name="pk_task_attachments" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="fk_task_attachments_tasks" unique="NORMAL" >
+				<column name="task_id" />
+			</index>
+			<fk name="fk_task_attachments_tasks" to_schema="laravel" to_table="tasks" delete_action="cascade" update_action="cascade" options="" >
+				<fk_column name="task_id" pk="id" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci]]></options>
+		</table>
+		<table name="task_comments" row_count="0" spec="" >
+			<column name="id" type="BIGINT" jt="-5" mandatory="y" unsigned="y" />
+			<column name="user_id" type="BIGINT" jt="-5" mandatory="y" unsigned="y" />
+			<column name="task_id" type="BIGINT" jt="-5" mandatory="y" unsigned="y" />
+			<column name="content" type="TEXT" jt="-1" mandatory="y" >
+				<column_options><![CDATA[CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci]]></column_options>
+			</column>
+			<column name="created_at" type="TIMESTAMP" jt="93" mandatory="y" >
+				<defo><![CDATA[CURRENT_TIMESTAMP]]></defo>
+			</column>
+			<column name="updated_at" type="TIMESTAMP" jt="93" >
+				<defo><![CDATA[CURRENT_TIMESTAMP]]></defo>
+				<column_options><![CDATA[ON UPDATE CURRENT_TIMESTAMP]]></column_options>
+			</column>
+			<index name="pk_task_comments" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="fk_comments_users" unique="NORMAL" >
+				<column name="user_id" />
+			</index>
+			<index name="fk_comments_tasks" unique="NORMAL" >
+				<column name="task_id" />
+			</index>
+			<fk name="fk_comments_tasks" to_schema="laravel" to_table="tasks" delete_action="cascade" update_action="cascade" options="" >
+				<fk_column name="task_id" pk="id" />
+			</fk>
+			<fk name="fk_comments_users" to_schema="laravel" to_table="users" delete_action="cascade" update_action="cascade" options="" >
+				<fk_column name="user_id" pk="id" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci]]></options>
+		</table>
+		<table name="task_log" row_count="0" spec="" >
+			<column name="id" type="BIGINT" jt="-5" mandatory="y" unsigned="y" >
+				<identity><![CDATA[AUTO_INCREMENT]]></identity>
+			</column>
+			<column name="action" type="VARCHAR" length="255" jt="12" mandatory="y" >
+				<column_options><![CDATA[CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci]]></column_options>
+			</column>
+			<column name="user_id" type="BIGINT" jt="-5" mandatory="y" unsigned="y" />
+			<column name="task_id" type="BIGINT" jt="-5" mandatory="y" unsigned="y" />
+			<index name="pk_task_log" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="fk_task_log_tasks" unique="NORMAL" >
+				<column name="task_id" />
+			</index>
+			<index name="fk_task_log_users" unique="NORMAL" >
+				<column name="user_id" />
+			</index>
+			<fk name="fk_task_log_tasks" to_schema="laravel" to_table="tasks" delete_action="cascade" update_action="cascade" options="" >
+				<fk_column name="task_id" pk="id" />
+			</fk>
+			<fk name="fk_task_log_users" to_schema="laravel" to_table="users" delete_action="cascade" update_action="cascade" options="" >
+				<fk_column name="user_id" pk="id" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci]]></options>
+		</table>
+		<table name="task_tags" row_count="0" spec="" >
+			<column name="id" type="BIGINT" jt="-5" mandatory="y" unsigned="y" >
+				<identity><![CDATA[AUTO_INCREMENT]]></identity>
+			</column>
+			<column name="task_id" type="BIGINT" jt="-5" mandatory="y" unsigned="y" />
+			<column name="tag_id" type="BIGINT" jt="-5" mandatory="y" unsigned="y" />
+			<index name="pk_task_tags" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="fk_task_tags_tags" unique="NORMAL" >
+				<column name="tag_id" />
+			</index>
+			<index name="fk_task_tags_tasks" unique="NORMAL" >
+				<column name="task_id" />
+			</index>
+			<fk name="fk_task_tags_tags" to_schema="laravel" to_table="tags" delete_action="cascade" update_action="cascade" options="" >
+				<fk_column name="tag_id" pk="id" />
+			</fk>
+			<fk name="fk_task_tags_tasks" to_schema="laravel" to_table="tasks" delete_action="cascade" update_action="cascade" options="" >
+				<fk_column name="task_id" pk="id" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci]]></options>
+		</table>
+		<table name="tasks" row_count="0" spec="" >
+			<column name="id" type="BIGINT" jt="-5" mandatory="y" unsigned="y" >
+				<identity><![CDATA[AUTO_INCREMENT]]></identity>
+			</column>
+			<column name="name" type="VARCHAR" length="255" jt="12" mandatory="y" >
+				<column_options><![CDATA[CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci]]></column_options>
+			</column>
+			<column name="description" type="TEXT" jt="-1" >
+				<column_options><![CDATA[CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci]]></column_options>
+			</column>
+			<column name="created_at" type="TIMESTAMP" jt="93" mandatory="y" >
+				<defo><![CDATA[CURRENT_TIMESTAMP]]></defo>
+			</column>
+			<column name="finished_at" type="TIMESTAMP" jt="93" >
+				<defo><![CDATA[CURRENT_TIMESTAMP]]></defo>
+				<column_options><![CDATA[ON UPDATE CURRENT_TIMESTAMP]]></column_options>
+			</column>
+			<column name="board_id" type="BIGINT" jt="-5" mandatory="y" unsigned="y" />
+			<column name="list_id" type="BIGINT" jt="-5" mandatory="y" unsigned="y" />
+			<column name="executor_id" type="BIGINT" jt="-5" unsigned="y" />
+			<column name="author_id" type="BIGINT" jt="-5" mandatory="y" unsigned="y" />
+			<index name="pk_tasks" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="fk_tasks_boards" unique="NORMAL" >
+				<column name="board_id" />
+			</index>
+			<index name="fk_tasks_statuses" unique="NORMAL" >
+				<column name="list_id" />
+			</index>
+			<index name="fk_tasks_users" unique="NORMAL" >
+				<column name="executor_id" />
+			</index>
+			<index name="fk_tasks_users_0" unique="NORMAL" >
+				<column name="author_id" />
+			</index>
+			<fk name="fk_tasks_boards" to_schema="laravel" to_table="boards" delete_action="cascade" update_action="cascade" options="" >
+				<fk_column name="board_id" pk="id" />
+			</fk>
+			<fk name="fk_tasks_statuses" to_schema="laravel" to_table="board_lists" delete_action="cascade" update_action="cascade" options="" >
+				<fk_column name="list_id" pk="id" />
+			</fk>
+			<fk name="fk_tasks_users" to_schema="laravel" to_table="users" delete_action="cascade" update_action="cascade" options="" >
+				<fk_column name="executor_id" pk="id" />
+			</fk>
+			<fk name="fk_tasks_users_0" to_schema="laravel" to_table="users" options="" >
+				<fk_column name="author_id" pk="id" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci]]></options>
+		</table>
+		<table name="users" row_count="10" spec="" >
+			<column name="id" type="BIGINT" jt="-5" mandatory="y" unsigned="y" >
+				<identity><![CDATA[AUTO_INCREMENT]]></identity>
+			</column>
+			<column name="name" type="VARCHAR" length="255" jt="12" mandatory="y" >
+				<column_options><![CDATA[CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci]]></column_options>
+			</column>
+			<column name="email" type="VARCHAR" length="255" jt="12" mandatory="y" >
+				<column_options><![CDATA[CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci]]></column_options>
+			</column>
+			<column name="email_verified_at" type="TIMESTAMP" jt="93" />
+			<column name="password" type="VARCHAR" length="255" jt="12" mandatory="y" >
+				<column_options><![CDATA[CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci]]></column_options>
+			</column>
+			<column name="remember_token" type="VARCHAR" length="100" jt="12" >
+				<column_options><![CDATA[CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci]]></column_options>
+			</column>
+			<column name="created_at" type="TIMESTAMP" jt="93" />
+			<column name="updated_at" type="TIMESTAMP" jt="93" />
+			<index name="pk_users" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="users_email_unique" unique="UNIQUE_KEY" >
+				<column name="email" />
+			</index>
+			<options><![CDATA[ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci]]></options>
+		</table>
+	</schema>
+	<layout name="Main Layout" id="Layout-1d36" show_relation="columns" >
+		<entity schema="laravel" name="board_lists" color="F4DDBE" x="1037" y="238" />
+		<entity schema="laravel" name="board_participants" color="F4DDBE" x="1037" y="425" />
+		<entity schema="laravel" name="boards" color="F4DDBE" x="850" y="238" />
+		<entity schema="laravel" name="cache" color="BED3F4" x="1054" y="1003" />
+		<entity schema="laravel" name="cache_locks" color="BED3F4" x="1241" y="1496" />
+		<entity schema="laravel" name="failed_jobs" color="BED3F4" x="1241" y="1003" />
+		<entity schema="laravel" name="job_batches" color="BED3F4" x="1020" y="1190" />
+		<entity schema="laravel" name="jobs" color="BED3F4" x="850" y="935" />
+		<entity schema="laravel" name="migrations" color="BED3F4" x="1054" y="816" />
+		<entity schema="laravel" name="password_reset_tokens" color="BED3F4" x="1241" y="816" />
+		<entity schema="laravel" name="personal_access_tokens" color="BED3F4" x="1462" y="1003" />
+		<entity schema="laravel" name="sessions" color="BED3F4" x="1241" y="1258" />
+		<entity schema="laravel" name="tags" color="C7F4BE" x="646" y="527" />
+		<entity schema="laravel" name="task_attachments" color="C7F4BE" x="51" y="289" />
+		<entity schema="laravel" name="task_comments" color="C7F4BE" x="255" y="527" />
+		<entity schema="laravel" name="task_log" color="C7F4BE" x="85" y="527" />
+		<entity schema="laravel" name="task_tags" color="C7F4BE" x="459" y="527" />
+		<entity schema="laravel" name="tasks" color="C7F4BE" x="255" y="238" />
+		<entity schema="laravel" name="users" color="C7F4BE" x="459" y="238" />
+		<callout x="255" y="85" pointer="Round" >
+			<comment><![CDATA[This is a layout. You can create multiple layouts with the same or different tables. 
+Double-click the table headers to edit.]]></comment>
+		</callout>
+		<group name="cache" color="ECF0F7" >
+			<entity schema="laravel" name="cache" />
+			<entity schema="laravel" name="failed_jobs" />
+			<entity schema="laravel" name="job_batches" />
+			<entity schema="laravel" name="jobs" />
+			<entity schema="laravel" name="migrations" />
+			<entity schema="laravel" name="password_reset_tokens" />
+			<entity schema="laravel" name="personal_access_tokens" />
+			<entity schema="laravel" name="sessions" />
+			<entity schema="laravel" name="cache_locks" />
+		</group>
+		<group name="boards" color="F7F2EC" >
+			<entity schema="laravel" name="boards" />
+			<entity schema="laravel" name="board_participants" />
+			<entity schema="laravel" name="board_lists" />
+		</group>
+		<group name="tasks" color="EEF7EC" >
+			<entity schema="laravel" name="tasks" />
+			<entity schema="laravel" name="users" />
+			<entity schema="laravel" name="task_tags" />
+			<entity schema="laravel" name="task_comments" />
+			<entity schema="laravel" name="task_log" />
+			<entity schema="laravel" name="tags" />
+			<entity schema="laravel" name="task_attachments" />
+		</group>
+	</layout>
+	<layout name="~Layout with Sample Tools" id="Layout-17b0" show_column_type="y" show_relation="columns" >
+		<entity schema="laravel" name="board_lists" color="F4DDBE" x="1360" y="51" />
+		<entity schema="laravel" name="board_participants" color="F4DDBE" x="1360" y="238" />
+		<entity schema="laravel" name="boards" color="F4DDBE" x="1105" y="51" />
+		<entity schema="laravel" name="cache" color="BED3F4" x="1360" y="867" />
+		<entity schema="laravel" name="cache_locks" color="BED3F4" x="1615" y="1122" />
+		<entity schema="laravel" name="failed_jobs" color="BED3F4" x="1615" y="867" />
+		<entity schema="laravel" name="job_batches" color="BED3F4" x="1326" y="1054" />
+		<entity schema="laravel" name="jobs" color="BED3F4" x="1105" y="799" />
+		<entity schema="laravel" name="migrations" color="BED3F4" x="1360" y="663" />
+		<entity schema="laravel" name="password_reset_tokens" color="BED3F4" x="1870" y="867" />
+		<entity schema="laravel" name="personal_access_tokens" color="BED3F4" x="1870" y="1122" />
+		<entity schema="laravel" name="sessions" color="BED3F4" x="1870" y="629" />
+		<entity schema="laravel" name="tags" color="C7F4BE" x="816" y="340" />
+		<entity schema="laravel" name="task_attachments" color="C7F4BE" x="51" y="102" />
+		<entity schema="laravel" name="task_comments" color="C7F4BE" x="323" y="340" />
+		<entity schema="laravel" name="task_log" color="C7F4BE" x="68" y="340" />
+		<entity schema="laravel" name="task_tags" color="C7F4BE" x="595" y="340" />
+		<entity schema="laravel" name="tasks" color="C7F4BE" x="323" y="51" />
+		<entity schema="laravel" name="users" color="C7F4BE" x="595" y="51" />
+		<script name="SQL Editor" id="Editor-1ff3" language="SQL" >
+			<string><![CDATA[SELECT
+	id, name, description, created_at, finished_at, board_id, list_id, executor_id, author_id
+FROM
+	laravel.tasks s;]]></string>
+		</script>
+		<browser id="Browse-5f1" name="Relational Data Explorer" confirm_updates="y" >
+			<browse_table schema="laravel" entity="tasks" x="20" y="20" width="270" height="-60" >
+				<browse_table schema="laravel" entity="task_attachments" fk="fk_task_attachments_tasks" x="310" y="20" width="500" height="350" />
+			</browse_table>
+		</browser>
+		<query id="Query-1bc4" name="Query Builder" >
+			<query_table schema="laravel" name="tasks" alias="t" x="51" y="51" >
+				<column name="id" />
+				<column name="name" />
+				<column name="description" />
+				<column name="created_at" />
+				<column name="finished_at" />
+				<column name="board_id" />
+				<column name="list_id" />
+				<column name="executor_id" />
+				<column name="author_id" />
+				<query_table schema="laravel" name="task_attachments" alias="ta" x="255" y="51" fk="fk_task_attachments_tasks" type="Inner Join" >
+					<column name="id" />
+					<column name="name" />
+					<column name="content" />
+					<column name="task_id" />
+					<column name="created_at" />
+					<column name="user_id" />
+				</query_table>
+			</query_table>
+		</query>
+		<form name="Report" id="Report-25df" template="Page" css="container-fluid" view="frame" >
+			<var name="samplePageNumber" type="4" value="0" mandatory="n" />
+			<var name="sampleRecordsPerPage" type="4" value="100" mandatory="n" />
+			<body name="Body" template="Grid" max_records="100" pos="0,0,0,0,f,f" layout="{{-2,-2,-2,-2,-1},{-2,-2,-2}}" generate_path="y" scroll="n" html="n" header_rows="0" footer_rows="0" >
+				<cell type="label" name="Tasks Data" template="H3" pos="0,0,1,0,l,c" />
+				<tableview name="sample" template="Table" max_records="100" css="sortable table table-striped table-sm table-hover" pos="0,1,4,1,f,f" layout="{{-2,-2,-2,-2,-2,-2,-2,-2,-2,-2},{-2,-2}}" generate_path="y" scroll="n" html="n" header_rows="1" footer_rows="0" >
+					<form_script type="DataSource" language="SQL" >
+						<var name="id" type="-5" />
+						<var name="name" />
+						<var name="description" type="-1" />
+						<var name="created_at" type="93" />
+						<var name="finished_at" type="93" />
+						<var name="board_id" type="-5" />
+						<var name="list_id" type="-5" />
+						<var name="executor_id" type="-5" />
+						<var name="author_id" type="-5" />
+						<script ><![CDATA[SELECT * FROM laravel.tasks]]></script>
+					</form_script>
+					<cell type="label" name="id" pos="0,0,0,0,c,c" />
+					<cell type="label" name="name" pos="1,0,1,0,c,c" />
+					<cell type="label" name="description" pos="2,0,2,0,c,c" />
+					<cell type="label" name="created_at" pos="3,0,3,0,c,c" />
+					<cell type="label" name="finished_at" pos="4,0,4,0,c,c" />
+					<cell type="label" name="board_id" pos="5,0,5,0,c,c" />
+					<cell type="label" name="list_id" pos="6,0,6,0,c,c" />
+					<cell type="label" name="executor_id" pos="7,0,7,0,c,c" />
+					<cell type="label" name="author_id" pos="8,0,8,0,c,c" />
+					<cell type="label" name="${id}" template="Plain" pos="0,1,0,1,l,c" />
+					<cell type="label" name="${name}" template="Plain" pos="1,1,1,1,l,c" />
+					<cell type="label" name="${description}" template="Plain" pos="2,1,2,1,l,c" />
+					<cell type="label" name="${created_at}" template="Plain" pos="3,1,3,1,l,c" />
+					<cell type="label" name="${finished_at}" template="Plain" pos="4,1,4,1,l,c" />
+					<cell type="label" name="${board_id}" template="Plain" pos="5,1,5,1,l,c" />
+					<cell type="label" name="${list_id}" template="Plain" pos="6,1,6,1,l,c" />
+					<cell type="label" name="${executor_id}" template="Plain" pos="7,1,7,1,l,c" />
+					<cell type="label" name="${author_id}" template="Plain" pos="8,1,8,1,l,c" />
+					<cell type="button" name="More" template="Plain" css="btn btn-sm btn-secondary" pos="9,1,9,1,c,c" ref_id="Report-25df" />
+				</tableview>
+				<cell type="href" name="" disabled="${samplePageNumber&lt;1}" pos="0,2,0,2,l,c" glyph="bi-chevron_double_left" ref_id="Report-25df" >
+					<var name="samplePageNumber" value="0" />
+				</cell>
+				<cell type="href" name="" disabled="${samplePageNumber&lt;1}" pos="1,2,1,2,l,c" glyph="bi-chevron_left" ref_id="Report-25df" >
+					<var name="samplePageNumber" value="${Math.max(0,samplePageNumber-1)}" />
+				</cell>
+				<cell type="label" name="Page ${samplePageNumber+1}" pos="2,2,2,2,l,c" />
+				<cell type="href" name="" disabled="${!sampleHasNextPage}" pos="3,2,3,2,l,c" glyph="bi-chevron_right" ref_id="Report-25df" >
+					<var name="samplePageNumber" value="${( samplePageNumber+1 )}" />
+				</cell>
+			</body>
+		</form>
+	</layout>
+</project>
